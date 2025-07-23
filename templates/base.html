@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            IFnexus
+        {% endblock %}
+    </title>
+</head>
+<body style="background-color: rgb(196, 196, 196);">
+
+    <header>
+        <h1 href="/" class="home">Nexus IF</h1> <!-- a ser substituido pela img -->
+            
+            {% if session.usuario %}
+                <nav class="botoes_logged">
+                    <a href="/" class="Incio">Início</a>
+                    <a href="/" class="Projetos">Projetos</a>
+                    <a href="/" class="Sobre">Sobre</a>
+                    <a href="/" class="Usuario">Usuario</a> <!-- tem q como sera feito aqui ainda-->
+                </nav>
+            
+            {% else %}
+                <nav class="botoes_not_logged">
+                    <a href="/" class="Incio">Início</a>
+                    <a href="/" class="Projetos">Projetos</a>
+                    <a href="/" class="Sobre">Sobre</a>
+                    <a href="/" class="Login">Login</a>
+                </nav>
+            {% endif %}
+    </header>
+        <!-- definiremos as rotas dos ngcs aq em cima apos a criacao das pags-->
+
+    <h1>
+        {% block pagina %}
+            
+        {% endblock %}
+    </h1>
+
+    {% block conteudo %}
+        
+    {% endblock %}
+    
+</body>
+</html>
