@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Página Inicial
+{% block title %}Página Inicial{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
 {% endblock %}
 
 {% block pagina %}
@@ -9,18 +11,22 @@
 {% endblock %}
 
 {% block conteudo %}
-    <div class="hero-left">
-        <h1>Ideias que conectam. Projetos que transformam.</h1>
-        <p>Um portal para explorar, divulgar, e se inspirar com os projetos do IF.</p>
-        <button>Explorar Projetos</button>
-    </div>
+<div class="hero-left">
+    <h1>Ideias que conectam. Projetos que transformam.</h1>
+    <p>Um portal para explorar, divulgar e se inspirar com os projetos do IF.</p>
+    <button>Explorar Projetos</button>
+</div>
 
-    <div class="hero-rigth">
-        <img src="" alt="Imagem Hero"> <!-- imagem do cabecario-->
-    </div> 
+<div class="hero-rigth">
+    <img src="" alt="Imagem Hero"> <!-- imagem do hero>-->
+</div> 
 
-{% endblock %}
+<p>Este é o conteúdo da página inicial.</p>
+<!-- loop para mostrar os cards -->
+<div class="cards">
+    {% for card in cards %}
+        {% include '_card.html' %}
+    {% endfor %}
+</div>
 
-{% block conteudo %}
-    <p>Este é o conteúdo da página inicial.</p>
 {% endblock %}
