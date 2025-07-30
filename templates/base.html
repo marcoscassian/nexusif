@@ -8,13 +8,16 @@
             IFnexus
         {% endblock %}
     </title>
+    <link rel="stylesheet" href="static/css/base.css">
     {% block estilos %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body style="background-color: rgb(196, 196, 196);">
 
     <header>
         <h1 href="/" class="home">Nexus IF</h1> <!-- a ser substituido pela img -->
             
+        <div class="botoes">
             {% if session.usuario %}
                 <nav class="botoes_logged">
                     <a href="/" class="Incio">Início</a>
@@ -31,6 +34,7 @@
                     <a href="/" class="Login">Login</a>
                 </nav>
             {% endif %}
+        </div>
     </header>
         <!-- definiremos as rotas dos ngcs aq em cima apos a criacao das pags-->
 
