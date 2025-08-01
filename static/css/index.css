@@ -10,6 +10,7 @@
     margin-top: 50px;
     padding-left: 20px;
 }
+
 .hero-left > h1 {
     color: white;
     font-size: 50px;
@@ -49,7 +50,8 @@ button:hover {
 }
 
 .content > h2 {
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     color: #30782B;
     font-size: 30px;
     text-align: center;
