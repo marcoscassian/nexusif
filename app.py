@@ -1,6 +1,32 @@
-from flask import Flask, render_template
+import sqlite3
+from flask import Flask, render_template, url_for, request, flash, session, redirect
+from flask_login import LoginManager, login_user, UserMixin
 
 app = Flask(__name__)
+app.secret_key = 'ifnexus'
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+class User(UserMixin):
+    def __init__(self, email, senha):
+        self.id = email
+        self.senha = senha
+
+def obter_conexao():
+    conn = sqlite3.connect('banco.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@login_manager.user_loader
+def load_user(user_id):
+    conn = obter_conexao()
+    usuario = conn.execute("SELECT * FROM usuarios WHERE email = ?", (user_id,)).fetchone()
+    conn.close()
+    if usuario:
+        user = User(usuario['email'], usuario['senha'])
+        return user
+    return None
 
 @app.route('/')
 def index():
@@ -33,9 +59,51 @@ def index():
             "imagem": "/static/img4.jpg",
             "tag": "Vestuário",
         },
-        
     ]
     return render_template('index.html', cards=cards)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        email = request.form['email']
+        senha = request.form['senha']
+
+        conn = obter_conexao()
+        usuario = conn.execute("SELECT * FROM usuarios WHERE email = ?", (email,)).fetchone()
+        conn.close()
+
+        if usuario and senha == usuario['senha']:
+            user = User(usuario['email'], usuario['senha'])
+            login_user(user)
+            flash('Login realizado com sucesso!', 'success')
+            return redirect(url_for('index'))
+
+        flash('Email ou senha inválidos.', category='error')
+        return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == "POST":
+        email = request.form['email']
+        senha = request.form['senha']
+
+        conn = obter_conexao()
+        usuario = conn.execute("SELECT * FROM usuarios WHERE email = ?", (email,)).fetchone()
+
+        if usuario:
+            conn.close()
+            flash('Erro: este email já está cadastrado.', category='error')
+            return redirect(url_for('register'))
+
+        conn.execute("INSERT INTO usuarios (email, senha) VALUES (?, ?)", (email, senha))
+        conn.commit()
+        conn.close()
+
+        flash('Cadastro realizado com sucesso! Agora faça login.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+
