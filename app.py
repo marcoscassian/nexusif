@@ -86,8 +86,11 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
+        nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
+        senhaconfirmada = request.form['senhaconfirmada']
+
 
         conn = obter_conexao()
         usuario = conn.execute("SELECT * FROM usuarios WHERE email = ?", (email,)).fetchone()
@@ -97,7 +100,7 @@ def register():
             flash('Erro: este email já está cadastrado.', category='error')
             return redirect(url_for('register'))
 
-        conn.execute("INSERT INTO usuarios (email, senha) VALUES (?, ?)", (email, senha))
+        conn.execute("INSERT INTO usuarios (nome, email, senha, senhaconfirmada) VALUES (?, ?, ?, ?)", (nome, email, senha, senhaconfirmada))
         conn.commit()
         conn.close()
 
