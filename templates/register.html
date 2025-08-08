@@ -1,36 +1,62 @@
-{% extends 'base.html' %}
+.main {
+    display: flex;
+    align-items: center;
+    background-color: #30782B;
+    justify-content: center;
+    flex-direction: column;
+    height: 547px;
+    width: 562px;
+    margin: auto;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
+}
 
-{% block title %}
-    Cadastro
-{% endblock %}
+h1 {
+    color: white;
+}
 
-{% block estilos %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
-{% endblock %}
+p {
+    color: white;
+}
 
-{% block conteudo %}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
 
-{% include 'componentes/erro.html' %}
+button {
+    background-color: #ffffff;
+    color:#30782B;
+    height: 45px;
+    width: 120%;
+    border: none;
+    padding: 14px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+button:hover {
+    background-color: #004e03;
+  }
 
-<div class="main">
-    <form action="{{ url_for('register') }}" method="post">
-        <div class="logo">
-            <h1>IFNexus</h1>
-            <img src="" alt="">
-        </div>
-        <p>Crie sua conta e faça parte do IFNexus.</p>
-        <input type="text" name="nome" id="Nome" placeholder="Nome">
-        <input type="text" name="email" placeholder="Email">
-        <input type="password" name="senha" placeholder="Senha">
-        <input type="password" name="senhaconfirmada" placeholder="Confirmar Senha">
-        <button>Cadastrar</button>
-</form>
-
-<div class="aside">
-    <p>
-        Já tem uma conta? 
-        <a href="{{ url_for('login') }}">Conecte-se</a>
-    </p>
-</div>
-
-{% endblock %}
+  
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    height: 40px;
+  width: 120%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
